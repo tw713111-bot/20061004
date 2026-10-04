@@ -1,0 +1,963 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="All In Coffee｜員林溫暖安靜的咖啡空間，提供手沖咖啡、自製甜點、穩定 Wi-Fi 與充足插座。">
+  <title>All In Coffee｜員林咖啡廳</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --coffee: #4a3025;
+      --dark-coffee: #302019;
+      --cream: #f8f4ec;
+      --wood: #c7a77a;
+      --light-wood: #e8d8bd;
+      --white: #fffdf9;
+      --text: #4b4039;
+      --border: #ded2c2;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        Arial,
+        sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+    }
+
+    /* =========================
+       Header
+    ========================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(48, 32, 25, 0.96);
+      color: var(--white);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    nav a {
+      font-size: 0.95rem;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.65;
+    }
+
+    /* =========================
+       Hero
+    ========================== */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      color: white;
+
+      background:
+        linear-gradient(
+          rgba(48, 32, 25, 0.62),
+          rgba(48, 32, 25, 0.72)
+        ),
+        url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=85")
+        center / cover;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero-subtitle {
+      color: var(--light-wood);
+      letter-spacing: 4px;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: 4px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 580px;
+      margin-bottom: 30px;
+      color: #f5eee4;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      border: 1px solid var(--light-wood);
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--light-wood);
+      color: var(--dark-coffee);
+    }
+
+    /* =========================
+       共用 Section
+    ========================== */
+    section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title span {
+      display: block;
+      color: var(--wood);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      color: var(--coffee);
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+    }
+
+    /* =========================
+       關於我們
+    ========================== */
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-image {
+      min-height: 380px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      object-fit: cover;
+    }
+
+    .about-text h3 {
+      color: var(--coffee);
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+    }
+
+    .about-text p {
+      margin-bottom: 18px;
+    }
+
+    /* =========================
+       咖啡廳照片 Gallery
+    ========================== */
+    .gallery {
+      background: var(--cream);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      grid-template-rows: 260px 260px;
+      gap: 15px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      background: var(--light-wood);
+    }
+
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 35px 18px 15px;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(
+        transparent,
+        rgba(48, 32, 25, 0.8)
+      );
+    }
+
+    /* =========================
+       菜單
+    ========================== */
+    .menu {
+      background: var(--white);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .menu-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 30px;
+      border-radius: 6px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(74, 48, 37, 0.1);
+    }
+
+    .menu-card h3 {
+      color: var(--coffee);
+      font-size: 1.4rem;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .price {
+      color: var(--coffee);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* =========================
+       空間設備
+    ========================== */
+    .space {
+      background: var(--white);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--cream);
+      border-radius: 6px;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      color: var(--coffee);
+      margin-bottom: 8px;
+    }
+
+    /* =========================
+       營業資訊
+    ========================== */
+    .info {
+      background: var(--light-wood);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .info-card {
+      background: rgba(255, 253, 249, 0.8);
+      padding: 30px;
+      border-radius: 6px;
+    }
+
+    .info-card h3 {
+      color: var(--coffee);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 8px 0;
+    }
+
+    .map-link {
+      color: var(--coffee);
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    /* =========================
+       聯絡與行動
+    ========================== */
+    .contact {
+      background: var(--dark-coffee);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact .section-title h2 {
+      color: var(--white);
+    }
+
+    .contact p {
+      max-width: 650px;
+      margin: 0 auto 30px;
+      color: #e7ddd4;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .contact .btn {
+      border-color: var(--light-wood);
+    }
+
+    .contact .btn.primary {
+      background: var(--light-wood);
+      color: var(--dark-coffee);
+    }
+
+    .contact .btn.primary:hover {
+      background: transparent;
+      color: white;
+    }
+
+    /* =========================
+       Footer
+    ========================== */
+    footer {
+      background: #211610;
+      color: #bcaea4;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 0.85rem;
+    }
+
+    /* =========================
+       RWD
+    ========================== */
+    @media (max-width: 800px) {
+
+      nav ul {
+        gap: 15px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 250px 250px;
+      }
+
+      .gallery-item:first-child {
+        grid-row: span 2;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        position: static;
+      }
+
+      .nav {
+        flex-direction: column;
+        padding: 15px 0;
+        gap: 12px;
+      }
+
+      nav ul {
+        gap: 13px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav a {
+        font-size: 0.8rem;
+      }
+
+      .hero {
+        min-height: 80vh;
+      }
+
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .section-title {
+        margin-bottom: 35px;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+
+      /* 手機版照片改為單欄 */
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 260px);
+      }
+
+      .gallery-item:first-child {
+        grid-row: auto;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image,
+      .about-image img {
+        min-height: 250px;
+      }
+
+      .menu-card,
+      .info-card {
+        padding: 23px;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .contact-buttons .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+
+      <a href="#home" class="logo">
+        ALL IN COFFEE
+      </a>
+
+      <nav aria-label="主要導覽">
+        <ul>
+          <li><a href="#about">關於我們</a></li>
+          <li><a href="#gallery">照片</a></li>
+          <li><a href="#menu">菜單</a></li>
+          <li><a href="#space">空間</a></li>
+          <li><a href="#info">營業資訊</a></li>
+          <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1. Hero -->
+    <section class="hero" id="home">
+
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="hero-subtitle">
+            SLOW DOWN · ENJOY COFFEE
+          </div>
+
+          <h1>All In Coffee</h1>
+
+          <p>
+            在員林的一個安靜角落，
+            為自己留一段慢下來的時間。
+            一杯手沖、一份甜點，陪你工作、閱讀，
+            或只是靜靜享受午後。
+          </p>
+
+          <a href="#menu" class="btn">
+            探索我們的菜單
+          </a>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. 關於我們 -->
+    <section class="about" id="about">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>ABOUT US</span>
+          <h2>關於我們</h2>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-image">
+            <img
+              src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1000&q=85"
+              alt="咖啡廳室內空間"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="about-text">
+
+            <h3>
+              一杯咖啡，一段自己的時間。
+            </h3>
+
+            <p>
+              All In Coffee 希望提供的不只是咖啡，
+              而是一個讓人可以放慢腳步的空間。
+            </p>
+
+            <p>
+              木質調的溫暖氛圍、舒服的座位，
+              搭配穩定 Wi-Fi 與充足插座，
+              無論是工作、讀書、聊天，
+              都能找到適合自己的位置。
+            </p>
+
+            <p>
+              平日下午不限時，
+              歡迎帶著一本書或一台筆電，
+              在咖啡香中度過悠閒午後。
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3. 咖啡廳照片 -->
+    <section class="gallery" id="gallery">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>CAFE GALLERY</span>
+          <h2>咖啡廳照片</h2>
+        </div>
+
+        <div class="gallery-grid">
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=85"
+              alt="咖啡與咖啡廳氛圍"
+              loading="lazy"
+            >
+            <div class="gallery-caption">
+              一杯咖啡，慢慢享受
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=900&q=85"
+              alt="溫暖木質咖啡廳空間"
+              loading="lazy"
+            >
+            <div class="gallery-caption">
+              溫暖木質空間
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?auto=format&fit=crop&w=900&q=85"
+              alt="手沖咖啡"
+              loading="lazy"
+            >
+            <div class="gallery-caption">
+              手沖咖啡
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85"
+              alt="咖啡廳甜點"
+              loading="lazy"
+            >
+            <div class="gallery-caption">
+              每日自製甜點
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 4. 菜單 -->
+    <section class="menu" id="menu">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>OUR MENU</span>
+          <h2>今日菜單</h2>
+        </div>
+
+        <div class="menu-grid">
+
+          <div class="menu-card">
+
+            <h3>☕ 咖啡</h3>
+
+            <div class="menu-item">
+              <span>美式咖啡</span>
+              <span class="price">$100</span>
+            </div>
+
+            <div class="menu-item">
+              <span>拿鐵咖啡</span>
+              <span class="price">$130</span>
+            </div>
+
+            <div class="menu-item">
+              <span>卡布奇諾</span>
+              <span class="price">$130</span>
+            </div>
+
+            <div class="menu-item">
+              <span>手沖咖啡</span>
+              <span class="price">$160 起</span>
+            </div>
+
+          </div>
+
+          <div class="menu-card">
+
+            <h3>🍵 非咖啡</h3>
+
+            <div class="menu-item">
+              <span>伯爵紅茶</span>
+              <span class="price">$100</span>
+            </div>
+
+            <div class="menu-item">
+              <span>鮮奶茶</span>
+              <span class="price">$120</span>
+            </div>
+
+            <div class="menu-item">
+              <span>可可</span>
+              <span class="price">$120</span>
+            </div>
+
+            <div class="menu-item">
+              <span>蜂蜜檸檬</span>
+              <span class="price">$110</span>
+            </div>
+
+          </div>
+
+          <div class="menu-card">
+
+            <h3>🍰 自製甜點</h3>
+
+            <div class="menu-item">
+              <span>巴斯克乳酪蛋糕</span>
+              <span class="price">$150</span>
+            </div>
+
+            <div class="menu-item">
+              <span>手作布丁</span>
+              <span class="price">$100</span>
+            </div>
+
+            <div class="menu-item">
+              <span>每日磅蛋糕</span>
+              <span class="price">$120</span>
+            </div>
+
+            <div class="menu-item">
+              <span>季節限定甜點</span>
+              <span class="price">$140 起</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 5. 空間設備 -->
+    <section class="space" id="space">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>SPACE & FACILITIES</span>
+          <h2>空間與設備</h2>
+        </div>
+
+        <div class="features">
+
+          <div class="feature-card">
+            <div class="feature-icon">🔌</div>
+            <h3>充足插座</h3>
+            <p>適合筆電工作與長時間閱讀。</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📶</div>
+            <h3>穩定 Wi-Fi</h3>
+            <p>提供穩定網路，安心處理工作。</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🌿</div>
+            <h3>安靜空間</h3>
+            <p>溫暖木質氛圍，享受舒服午後。</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">💻</div>
+            <h3>平日下午不限時</h3>
+            <p>適合讀書、工作與慢慢喝咖啡。</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 6. 營業資訊 -->
+    <section class="info" id="info">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>INFORMATION</span>
+          <h2>營業資訊</h2>
+        </div>
+
+        <div class="info-grid">
+
+          <div class="info-card">
+
+            <h3>📍 店家地址</h3>
+
+            <ul class="info-list">
+
+              <li>
+                <a
+                  class="map-link"
+                  href="https://www.google.com/maps/search/?api=1&query=510台灣彰化縣員林市仁美里和平東街60-1號"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  510 彰化縣員林市仁美里<br>
+                  和平東街 60-1 號
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <div class="info-card">
+
+            <h3>🕐 營業時間</h3>
+
+            <ul class="info-list">
+              <li>週一～週五：10:00 – 20:00</li>
+              <li>週六～週日：10:00 – 21:00</li>
+              <li>平日下午不限時</li>
+              <li>實際營業時間以店家公告為準</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 7. 聯絡與行動 -->
+    <section class="contact" id="contact">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>CONTACT</span>
+          <h2>來 All In Coffee 坐坐吧</h2>
+        </div>
+
+        <p>
+          不論是一個人的安靜午後，
+          還是和朋友一起喝杯咖啡，
+          都歡迎來 All In Coffee 找個舒服的位置。
+        </p>
+
+        <div class="contact-buttons">
+
+          <!-- 請將電話改成店家實際電話 -->
+          <a
+            href="tel:04-00000000"
+            class="btn primary"
+          >
+            📞 電話聯絡
+          </a>
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=510台灣彰化縣員林市仁美里和平東街60-1號"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn"
+          >
+            📍 開啟 Google Maps
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 All In Coffee. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
+```
